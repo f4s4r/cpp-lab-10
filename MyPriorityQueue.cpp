@@ -3,8 +3,7 @@
 //
 
 #include "MyPriorityQueue.h"
-template <class T>
 
-MyPriorityQueue<T>::MyPriorityQueue() :
-    queue_(NULL), size_(0)
-{}
+//template <class T>
+
+
