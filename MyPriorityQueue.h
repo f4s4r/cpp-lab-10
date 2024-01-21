@@ -100,13 +100,21 @@ public:
     }
 
 
-    void pop(size_t index = SIZE_MAX)
+    T pop(size_t index = SIZE_MAX)
     {
+        size_t start_size = this->get_size();
         if (index == SIZE_MAX)
-            this->resize(this->get_size() - 1);
+        {
+            T res = queue_[start_size - 1];
+            this->resize(start_size - 1);
+
+            this->show();
+
+            return res;
+        }
         else
         {
-            size_t start_size = this->get_size();
+            T res = queue_[index];
             T* temp = new T[start_size - 1];
             for (size_t i = 0; i < start_size - 1; ++i)
             {
@@ -116,8 +124,16 @@ public:
                     temp[i] = queue_[i+1];
             }
             this->copy_t(temp, start_size - 1);
+
+            this->show();
+
+            return res;
         }
-        this->show();
+    }
+
+    T peek(size_t index)
+    {
+        return queue_[index];
     }
 
 
