@@ -52,6 +52,7 @@ public:
 
     void resize(size_t new_size)
     {
+
         T* temp = new T[new_size];
         for (size_t i = 0; i < this->get_size(); ++i)
         {
