@@ -136,7 +136,10 @@ public:
         return queue_[index];
     }
 
-
+    size_t size()
+    {
+        return get_size(); // -_-
+    }
 
 
     void show() const
