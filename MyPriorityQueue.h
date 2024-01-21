@@ -138,7 +138,7 @@ public:
 
     size_t size()
     {
-        return get_size(); // -_-
+        return this->get_size(); // -_-
     }
 
 
