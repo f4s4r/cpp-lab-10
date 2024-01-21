@@ -9,6 +9,7 @@ int main() {
     queue.push(4);
     queue.push(5);
     queue.push(10);
+    queue.pop(1);
     //std::cout << queue.get_size();
     return 0;
 }

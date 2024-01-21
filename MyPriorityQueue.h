@@ -27,7 +27,8 @@ public:
 
     ~MyPriorityQueue()
     {
-        delete[] this->queue_;
+        delete[] queue_;
+        size_ = 0;
     }
 
 
@@ -52,7 +53,6 @@ public:
 
     void resize(size_t new_size)
     {
-
         T* temp = new T[new_size];
         for (size_t i = 0; i < this->get_size(); ++i)
         {
@@ -78,7 +78,7 @@ public:
         }
         else
         {
-            // searching place for insert
+            // searching for place for insert
             size_t i;
             T* temp = new T[start_size + 1];
 
@@ -96,6 +96,27 @@ public:
 
         }
 
+        this->show();
+    }
+
+
+    void pop(size_t index = SIZE_MAX)
+    {
+        if (index == SIZE_MAX)
+            this->resize(this->get_size() - 1);
+        else
+        {
+            size_t start_size = this->get_size();
+            T* temp = new T[start_size - 1];
+            for (size_t i = 0; i < start_size - 1; ++i)
+            {
+                if (i < index)
+                    temp[i] = queue_[i];
+                else
+                    temp[i] = queue_[i+1];
+            }
+            this->copy_t(temp, start_size - 1);
+        }
         this->show();
     }
 
