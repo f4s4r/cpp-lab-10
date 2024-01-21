@@ -15,10 +15,22 @@ public:
     //parameterless constructor
     MyPriorityQueue() : queue_(nullptr), size_(0) {}
 
+    MyPriorityQueue(const MyPriorityQueue& other) : size_(other.get_size())
+    {
+        delete[] queue_;
+        queue_ = new T[other.get_size()];
+        for (size_t i = 0; i < other.get_size(); ++i)
+        {
+            queue_[i] = other.queue_[i];
+        }
+    }
+
     ~MyPriorityQueue()
     {
         delete[] this->queue_;
     }
+
+
 
     //methods
     size_t get_size() const
@@ -27,34 +39,67 @@ public:
     }
 
 
-    void push(T item)
+    void copy_t(const T* other, size_t new_size)
     {
+        delete[] queue_;
+        queue_ = new T[new_size];
+        for (size_t i = 0; i < new_size; ++i)
+        {
+            queue_[i] = other[i];
+        }
+        size_ = new_size;
+    }
+
+    void resize(size_t new_size)
+    {
+        T* temp = new T[new_size];
+        for (size_t i = 0; i < this->get_size(); ++i)
+        {
+            temp[i] = queue_[i];
+        }
+        delete[] queue_;
+        queue_ = new T[new_size];
+        for (size_t i = 0; i < new_size; ++i)
+        {
+            queue_[i] = temp[i];
+        }
+        queue_[new_size] = 0;
+        size_ = new_size;
+    }
+
+    void push(T item) {
         size_t start_size = this->get_size();
-        T* temp = new T[start_size + 1];
 
-        for (size_t i = 0; i < start_size; ++i) // copy current values to temp array
+        if (start_size == 0 || item >= queue_[start_size - 1]) {
+            // push in end or empty queue
+            this->resize(start_size + 1);
+            queue_[start_size] = item;
+        }
+        else
         {
-            temp[i] = this->queue_[i];
-//            if (item > this->queue_[i])
-//            {
-//                temp[i] = this->queue_[i];
-//            }
+            // searching place for insert
+            size_t i;
+            T* temp = new T[start_size + 1];
+
+            for (size_t j = 0; j < start_size; ++j)
+            {
+                temp[j] = queue_[j]; // copying queue in temp
+            }
+
+            for (i = start_size; i > 0 && item < queue_[i - 1]; --i)
+            {
+                temp[i] = queue_[i - 1]; // shifting
+            }
+            temp[i] = item;
+            this->copy_t(temp, start_size + 1);
 
         }
-        temp[start_size] = item; // add extra block
 
-        delete[] this->queue_;
-        this->queue_ = new T[start_size + 1];
-
-        for (size_t i = 0; i < start_size + 1; ++i)
-        {
-            this->queue_[i] = temp[i];
-        }
-        delete[] temp;
-
-        this->size_ = this->get_size() + 1;
         this->show();
     }
+
+
+
 
     void show() const
     {
