@@ -12,5 +12,7 @@ int main() {
     std::cout << queue.pop(1) << " - pop() res" << std::endl;
     std::cout << queue.peek(1) << " - peek() res" << std::endl;
     //std::cout << queue.get_size();
+
+    std::cout << queue;
     return 0;
 }

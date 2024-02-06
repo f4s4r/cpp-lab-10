@@ -157,6 +157,12 @@ public:
             std::cerr << "Zero array size" << std::endl;
         }
     }
+    friend std::ostream &operator<<(std::ostream &os, const MyPriorityQueue<T> &pq) {
+        for (size_t i = 0; i < pq.get_size(); ++i) {
+            os << pq.queue_[i] << " ";
+        }
+        return os;
+    }
 };
 
 
