@@ -156,15 +156,16 @@ public:
             std::cerr << "Zero array size" << std::endl;
         }
     }
-    friend std::ostream &operator<<(std::ostream &os, const MyPriorityQueue<T> &pq);
+    template <typename T1>
+    friend std::ostream &operator<<(std::ostream &os, const MyPriorityQueue<T1> &pq);
 };
-template <typename T>
-std::ostream &operator<<(std::ostream &os, const MyPriorityQueue<T> &pq)
-{
-    for (size_t i = 0; i < pq.get_size(); ++i)
-    {
-        os << pq.queue_[i] << " ";
+
+template<typename T>
+std::ostream &operator<<(std::ostream &os, const MyPriorityQueue<T> &pq) {
+    for (size_t i = 0; i < pq.get_size(); i++) {
+        os << pq.queue_[i] << ' ';
     }
+
     return os;
 }
 
