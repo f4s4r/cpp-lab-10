@@ -5,7 +5,7 @@
 #ifndef CPP_LAB_10_MYPRIORITYQUEUE_H
 #define CPP_LAB_10_MYPRIORITYQUEUE_H
 
-template <class T>
+template <typename T>
 class MyPriorityQueue {
 private:
     size_t size_;
@@ -17,7 +17,7 @@ public:
 
     MyPriorityQueue(const MyPriorityQueue& other) : size_(other.get_size())
     {
-        delete[] queue_;
+        //delete[] queue_;
         queue_ = new T[other.get_size()];
         for (size_t i = 0; i < other.get_size(); ++i)
         {
@@ -95,7 +95,6 @@ public:
             this->copy_t(temp, start_size + 1);
 
         }
-
         this->show();
     }
 
@@ -157,13 +156,16 @@ public:
             std::cerr << "Zero array size" << std::endl;
         }
     }
-    friend std::ostream &operator<<(std::ostream &os, const MyPriorityQueue<T> &pq) {
-        for (size_t i = 0; i < pq.get_size(); ++i) {
-            os << pq.queue_[i] << " ";
-        }
-        return os;
-    }
+    friend std::ostream &operator<<(std::ostream &os, const MyPriorityQueue<T> &pq);
 };
-
+template <typename T>
+std::ostream &operator<<(std::ostream &os, const MyPriorityQueue<T> &pq)
+{
+    for (size_t i = 0; i < pq.get_size(); ++i)
+    {
+        os << pq.queue_[i] << " ";
+    }
+    return os;
+}
 
 #endif //CPP_LAB_10_MYPRIORITYQUEUE_H
